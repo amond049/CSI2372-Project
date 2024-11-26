@@ -7,7 +7,7 @@
 Deck::Deck(std::istream& in, const CardFactory* factory) {
     std::string cardName;
     while (in >> cardName) {
-        Card* card = factory->createCard(cardName);
+        Card* card = factory->createCard(cardName); //might need refactoring, placeholder as of now
         if (card) {
             this->push_back(card); // Add the card to the deck
         }

@@ -2,36 +2,28 @@
 #include <vector>
 #include <iostream>
 #include "Card.h"
-#include <stdexcept>
+#include "CardFactory.h"
 
-class DiscardPile{
-    private:
-        std::vector<Card*> pile; // Container to hold discarded cards
+class DiscardPile {
+private:
+    std::vector<Card*> pile; // Container for cards in the discard pile
 
-    public:
-        //add card to pile
+public:
+    // constructor to reconstruct DiscardPile from file
+    DiscardPile(std::istream& in, const CardFactory* factory);
 
-        void addCard (Card* card);
+    // Add a card to the discard pile
+    DiscardPile& operator+=(Card* card);
 
-        //view the top card of the discard pile but don't remove it
+    //remove and return the top card from the discard pile
+    Card* pickUp();
 
-        Card* top() const;
+    // return (but do not remove) the top card from the discard pile
+    Card* top() const;
 
-        // remove and return the top card
+    // Print all cards in the discard pile
+    void print(std::ostream& out) const;
 
-        Card* removeCard();
-
-        //print discard pile contents
-
-        void print (std::ostream& out) const;
-
-        //Friend operator << for serialization
-        friend std::ostream& operator<<(std::ostream& out, const DiscardPile& dp);
-
-
-
-
-
-
+    // serialize the top card in the discard pile
+    friend std::ostream& operator<<(std::ostream& out, const DiscardPile& dp);
 };
-
